@@ -1,10 +1,12 @@
+import React, { useState } from 'react';
 import './TicTacToe.css';
 import Square from '../Square';
-import { useState } from 'react';
 import X from '../X';
 import O from '../O';
 
-const winConditions = [
+type SquareValue = 'x' | 'o' | null;
+
+const winConditions: number[][] = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -15,13 +17,13 @@ const winConditions = [
   [2, 4, 6],
 ];
 
-const TicTacToe = () => {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [isXTurn, setIsXTurn] = useState(true);
-  const [status, setStatus] = useState("Tic Tac Toe Game In React");
+const TicTacToe: React.FC = () => {
+  const [squares, setSquares] = useState<SquareValue[]>(Array(9).fill(null));
+  const [isXTurn, setIsXTurn] = useState<boolean>(true);
+  const [status, setStatus] = useState<string>("Tic Tac Toe Game In React");
   const [winner, setWinner] = useState<React.ReactNode>(null);
 
-  const handleClick = (index: number) => {
+  const handleClick = (index: number): void => {
     if (squares[index] || checkWinner(squares)) {
       return;
     }
@@ -32,7 +34,7 @@ const TicTacToe = () => {
     updateStatus(newSquares);
   };
 
-  const updateStatus = (squares: Array<string>) => {
+  const updateStatus = (squares: SquareValue[]): void => {
     const winner = checkWinner(squares);
     if (winner) {
       setStatus(`Congratulations: `);
@@ -51,7 +53,7 @@ const TicTacToe = () => {
     }
   };
 
-  const checkWinner = (squares: Array<string>) => {
+  const checkWinner = (squares: SquareValue[]): SquareValue => {
     for (let i = 0; i < winConditions.length; i++) {
       const [a, b, c] = winConditions[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
@@ -61,7 +63,7 @@ const TicTacToe = () => {
     return null;
   };
 
-  const resetGame = () => {
+  const resetGame = (): void => {
     setSquares(Array(9).fill(null));
     setIsXTurn(true);
     setStatus("Tic Tac Toe Game In React");
@@ -72,7 +74,7 @@ const TicTacToe = () => {
     <div className='container'>
       <h1 className='title'>{status}{winner}</h1>
       <div className='board'>
-        {Array(9).fill(null).map((_, i) => (
+        {squares.map((_, i) => (
           <Square key={i} value={squares[i]} onClick={() => handleClick(i)} />
         ))}
       </div>
