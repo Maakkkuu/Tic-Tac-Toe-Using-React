@@ -29,14 +29,14 @@ body {
 }
 
 .reset {
-    width: 13rem;
-    height: 5rem;
+    width: 10rem;
+    height: 4rem;
     border: none;
     outline: none;
     cursor: pointer;
     border-radius: 3.125rem;
     background: #1f3540;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: #26ffcb;
     margin: 1rem 0 3rem 0;
 }
